@@ -5,7 +5,7 @@ author: junowa
 
 Comment optimiser les performances de NGINX pour délivrer le contenu.
 
-# sendfile
+## sendfile
 
 Par defaut, pour transmettre un fichier, NGINX copie ce fichier dans un buffer avant de l'envoyer. La directive **sendfile** permet de copier directement les données d'un file descriptor vers un autre en élimant l'opération coûteuse de copie en mémoire.
 
@@ -23,7 +23,7 @@ location /mp3 {
 
 Si en revanche, vous n’utilisez nginx qu’en guise de reverse proxy devant un ou plusieurs serveurs d’application, sendfile ne vous servira absolument à rien, sauf, une fois encore, si vous mettez en place du micro caching...
 
-# tcp_nopush
+## tcp_nopush
 
 Utiliser conjointement avec **sendfile**, **tcp_nopush** force l'envoie de l'ensemble des données de la réponse HTTP en un seul paquet.
 
@@ -41,7 +41,7 @@ location /mp3 {
 }
 ```
 
-# tcp_nodelay
+## tcp_nodelay
 
 L'algorithme de Nagle regroupe un certain nombre de petits paquets en un paquet plus gros, puis envoie le paquet avec un delais de 200ms (delay ack).
 
@@ -71,7 +71,7 @@ Nginx utilise l’option TCP_NODELAY sur les connexions keepalive HTTP, c’est 
 Quelle différence alors entre l'algorithme de Nagle et **tcp_nopush**. Les deux techniques accumulent des données pour réduire l'overhead réseau. Mais à la différence de Nagle qui attend le ACK delay (200ms), pour envoyer les données, **tcp_nopush** envoie les données dès que son buffer est rempli.
 
 
-# Optimiser la Backlog Queue
+## Optimiser la Backlog Queue
 
 Lorsqu'une connexion est établie, elle est insérée dans la "listen queue" de la socket en écoute. Lorsque la charge est nominale, la queue est presque vide voire vide. Lorsque la charge augmente, la taille de la queue augemente et peut entrainer des problèmes de performance, de latence, de perte de paquets.
 
@@ -102,7 +102,7 @@ server {
 ```
 
 
-# References
+## References
 https://docs.nginx.com/nginx/admin-guide/web-server/serving-static-content/
 
 https://thoughts.t37.net/optimisations-nginx-bien-comprendre-sendfile-tcp-nodelay-et-tcp-nopush-2ab3f33432ca
