@@ -9,7 +9,7 @@ Comment optimiser les performances de NGINX pour délivrer le contenu.
 
 Par defaut, pour transmettre un fichier, NGINX copie ce fichier dans un buffer avant de l'envoyer. La directive **sendfile** permet de copier directement les données d'un file descriptor vers un autre en élimant l'opération coûteuse de copie en mémoire.
 
-Afin de limiter la charge du process worker, il est possible de limiter la taille des données transmises par appel à senfile() avec la directive **sendfile_max_chunk**.
+Afin de limiter la charge du process worker, il est possible de limiter la taille des données transmises par appel à sendfile() avec la directive **sendfile_max_chunk**.
  
 ```
 location /mp3 {
